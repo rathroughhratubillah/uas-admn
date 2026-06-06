@@ -1,0 +1,76 @@
+services:
+  reverse-proxy:
+    image: nginx:alpine
+    container_name: uascloud-lingga-reverse-proxy
+    restart: unless-stopped
+    depends_on:
+      - static-cv
+      - dynamic-app
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - uas-network
+
+  static-cv:
+    image: ${STATIC_IMAGE:-ratubillahlinggasuci/uas-static:latest}
+    build:
+      context: ./static-cv
+    container_name: uascloud-lingga-static-cv
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - uas-network
+
+  dynamic-app:
+    image: ${DYNAMIC_IMAGE:-ratubillahlinggasuci/uas-dynamic:latest}
+    build:
+      context: ./dynamic-app
+    container_name: uascloud-lingga-dynamic-app
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    expose:
+      - "80"
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_NAME: ${MYSQL_DATABASE:-uascloud_lingga_db}
+      DB_USER: ${MYSQL_USER:-uascloud_lingga_user}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-uascloud_lingga_password}
+      SEED_FILE: /docker-seed/seed.sql
+    volumes:
+      - ./database/seed.sql:/docker-seed/seed.sql:ro
+    networks:
+      - uas-network
+
+  mariadb:
+    image: mariadb:11.4
+    container_name: uascloud-lingga-mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-uascloud_lingga_root_password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-uascloud_lingga_db}
+      MYSQL_USER: ${MYSQL_USER:-uascloud_lingga_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-uascloud_lingga_password}
+    volumes:
+      - uascloud-lingga-mariadb-data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - uas-network
+
+networks:
+  uas-network:
+    driver: bridge
+
+volumes:
+  uascloud-lingga-mariadb-data:

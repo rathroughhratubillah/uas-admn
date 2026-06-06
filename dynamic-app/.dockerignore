@@ -1,0 +1,28 @@
+# ============================================================
+# .dockerignore — dynamic-app
+# ============================================================
+
+# Git
+.git
+.gitignore
+
+# Editor & OS
+.vscode
+.idea
+*.DS_Store
+Thumbs.db
+
+# Logs & cache
+*.log
+/tmp
+
+# Secrets — JANGAN pernah masuk ke image
+*.env
+.env
+.env.*
+*.pem
+*.key
+*.p12
+
+# Dokumentasi lokal
+README.md
