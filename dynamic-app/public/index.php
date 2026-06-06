@@ -31,7 +31,7 @@ echo pageHeader('Data Kontak');
   <section class="hero-panel">
     <div>
       <p class="eyebrow">Dynamic Web App</p>
-      <h1>CRUD Data Kontak</h1>
+      <h1>CRUD Data Kontak Lingga 2388010012</h1>
       <p>Aplikasi PHP dan MariaDB untuk UAS Administrasi Server milik Ratu Billah Lingga Suci | 2388010012.</p>
     </div>
     <div class="hero-actions">
