@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-echo pageHeader('Tambah Data');
+echo pageHeader('Tabah Data');
 ?>
 <main class="app-shell">
   <section class="content-card form-card">
