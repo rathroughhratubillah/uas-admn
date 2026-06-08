@@ -6,7 +6,7 @@ require_once __DIR__ . '/../src/auth.php';
 requireLogin();
 
 $pdo = DB::get();
-$search = sanitizeInput($_GET['q'] ?? '', 80)
+$search = sanitizeInput($_GET['q'] ?? '', 80);
 
 $sql = 'SELECT id, name, age, email, created_at FROM contacts';
 $params = [];
