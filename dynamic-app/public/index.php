@@ -61,7 +61,7 @@ echo pageHeader('Data Kontak');
     <div class="section-toolbar">
       <div>
         <h2>Daftar Kontak</h2>
-        <p>Kelola data nama, umur, dan email.</p>
+        <p>Kelola data nma, umur, dan email.</p>
       </div>
       <form class="search-form" method="get">
         <input type="search" name="q" value="<?= e($search); ?>" placeholder="Cari nama atau email">
