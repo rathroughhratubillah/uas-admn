@@ -6,7 +6,7 @@ require_once __DIR__ . '/../src/auth.php';
 requireLogin();
 
 $pdo = DB::get();
-$search = sanitizeInput($_GET['q'] ?? '', 80);
+$search = sanitizeInput($_GET['q'] ?? '', 80)
 
 $sql = 'SELECT id, name, age, email, created_at FROM contacts';
 $params = [];
@@ -65,7 +65,7 @@ echo pageHeader('Data Kontak');
       </div>
       <form class="search-form" method="get">
         <input type="search" name="q" value="<?= e($search); ?>" placeholder="Cari nama atau email">
-        <button class="btn btn-secondary" type="submit">Cari</button>
+        <button class="btn btn-secondary" type="submit">search</button>
       </form>
     </div>
 
