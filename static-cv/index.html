@@ -1,421 +1,659 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>For Muhammad Faqih Rizki Fauzi 🤍</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet"/>
+  <title>For Faqih 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blush:    #F9E4EC;
-      --rose:     #E8A0B4;
-      --deep:     #C76E8A;
-      --petal:    #FDF0F5;
-      --ivory:    #FFFAF9;
-      --text:     #5A2D41;
-      --soft:     #9E5A72;
+      --rose:    #7d2d4f;
+      --rose2:   #9e3d65;
+      --blush:   #f5d6e0;
+      --petal:   #fce8f0;
+      --cream:   #fff5f8;
+      --text:    #1a1a1a;
+      --muted:   #6b3a4e;
+      --white:   #ffffff;
+      --border:  #e8c4d4;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--ivory);
+      background: var(--cream);
       color: var(--text);
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 400;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* ── FLOATING PETALS ── */
-    .petals-bg {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    }
-    .petal {
-      position: absolute;
-      top: -60px;
-      font-size: 1.2rem;
-      animation: fallDown linear infinite;
-      opacity: 0.55;
-      user-select: none;
-    }
-    @keyframes fallDown {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    /* ═══════════════════════════════
+       FLOATING HEARTS CANVAS
+    ═══════════════════════════════ */
+    #hearts-canvas {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
     }
 
-    /* ── OPENING SCREEN ── */
-    #opening {
-      position: fixed; inset: 0; z-index: 100;
-      background: linear-gradient(160deg, #fff0f5 0%, #fce4ec 60%, #f8bbd0 100%);
+    /* ═══════════════════════════════
+       SCREEN SYSTEM
+    ═══════════════════════════════ */
+    .screen {
+      position: fixed; inset: 0; z-index: 50;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       text-align: center; padding: 2rem;
-      transition: opacity 1.2s ease, transform 1.2s ease;
+      transition: opacity .8s ease, transform .8s ease;
     }
-    #opening.hide {
-      opacity: 0; transform: scale(1.05); pointer-events: none;
+    .screen.hidden {
+      opacity: 0; transform: scale(.96);
+      pointer-events: none;
     }
-    .opening-label {
-      font-family: 'Lato', sans-serif;
-      font-size: .8rem; letter-spacing: .25em;
-      text-transform: uppercase; color: var(--deep);
-      margin-bottom: 1.2rem;
+    .screen.gone { display: none; }
+
+    /* ═══════════════════════════════
+       SCREEN 1 — OPENING
+    ═══════════════════════════════ */
+    #s-open {
+      background: linear-gradient(160deg, #fce8f0 0%, #f5d6e0 50%, #ecc5d5 100%);
     }
-    .opening-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.4rem, 7vw, 4.5rem);
-      color: var(--text);
-      line-height: 1.3;
-      margin-bottom: .5rem;
+
+    .open-deco {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      animation: wiggle 2s ease-in-out infinite;
     }
-    .opening-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.1rem, 3.5vw, 1.8rem);
-      color: var(--deep);
-      letter-spacing: .04em;
+    @keyframes wiggle {
+      0%,100%{transform:rotate(-8deg) scale(1)}
+      50%{transform:rotate(8deg) scale(1.1)}
+    }
+
+    .open-for {
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .28em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: .6rem;
+    }
+    .open-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.8rem, 7vw, 3.2rem);
+      color: var(--text); line-height: 1.25;
+      margin-bottom: .4rem;
+    }
+    .open-name {
+      font-size: clamp(1rem, 3.5vw, 1.4rem);
+      font-weight: 800; color: var(--rose);
       margin-bottom: 2.5rem;
     }
     .open-btn {
-      background: var(--deep);
-      color: #fff;
+      background: var(--rose);
+      color: var(--white);
       border: none; border-radius: 50px;
-      padding: .9rem 2.8rem;
-      font-family: 'Lato', sans-serif;
-      font-size: .95rem; letter-spacing: .12em;
+      padding: 1rem 2.8rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem; font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 6px 24px rgba(199,110,138,.35);
-      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 6px 0 #5a1e37, 0 8px 20px rgba(125,45,79,.3);
+      transition: transform .12s, box-shadow .12s;
     }
-    .open-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(199,110,138,.4); }
-    .open-hearts {
-      margin-bottom: 2rem;
-      font-size: 2rem;
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
-
-    /* ── MAIN CONTENT ── */
-    main { position: relative; z-index: 1; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-      background: linear-gradient(180deg, #fff6f9 0%, var(--ivory) 100%);
-    }
-    .hero-tag {
-      font-size: .75rem; letter-spacing: .3em; text-transform: uppercase;
-      color: var(--rose); margin-bottom: 1.5rem;
-    }
-    .hero-script {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(3rem, 10vw, 6rem);
-      color: var(--text); line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-    .hero-sub {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(.95rem, 2.5vw, 1.25rem);
-      color: var(--soft); max-width: 540px;
-      line-height: 1.9;
-    }
-    .divider {
-      width: 60px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--rose), transparent);
-      margin: 2.5rem auto;
+    .open-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #5a1e37, 0 4px 10px rgba(125,45,79,.2);
     }
 
-    /* ── SECTIONS ── */
-    section {
-      padding: 5rem 1.5rem;
-      max-width: 720px; margin: 0 auto;
-      text-align: center;
-    }
-    .section-eyebrow {
-      font-size: .72rem; letter-spacing: .28em;
-      text-transform: uppercase; color: var(--rose);
-      margin-bottom: 1rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 4vw, 2.1rem);
-      color: var(--text); line-height: 1.4;
-      margin-bottom: 1.5rem;
-    }
-    .section-body {
-      font-size: 1.05rem; line-height: 1.95;
-      color: var(--soft); max-width: 580px; margin: 0 auto;
+    /* ═══════════════════════════════
+       SCREEN 2 — GAME
+    ═══════════════════════════════ */
+    #s-game {
+      background: linear-gradient(160deg, #f5d6e0 0%, #fce8f0 100%);
     }
 
-    /* ── CARD STRIP ── */
-    .cards {
-      display: flex; flex-wrap: wrap; gap: 1.2rem;
-      justify-content: center;
-      padding: 3rem 1.5rem 5rem;
+    .game-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      color: var(--rose); margin-bottom: .5rem;
     }
-    .card {
-      background: #fff;
-      border: 1.5px solid #f2d0dc;
-      border-radius: 20px;
-      padding: 2rem 1.8rem;
-      width: 240px;
-      box-shadow: 0 4px 20px rgba(199,110,138,.08);
-      transition: transform .25s, box-shadow .25s;
-      text-align: center;
-    }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(199,110,138,.15); }
-    .card-icon { font-size: 2rem; margin-bottom: .9rem; }
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem; color: var(--text);
-      margin-bottom: .6rem;
-    }
-    .card-text {
-      font-size: .88rem; line-height: 1.75; color: var(--soft);
+    .game-sub {
+      font-size: .9rem; font-weight: 600;
+      color: var(--muted); margin-bottom: 1.8rem;
     }
 
-    /* ── LOVE LETTER ── */
-    .letter-wrap {
-      background: #fff;
-      border: 1.5px solid #f2d0dc;
-      border-radius: 24px;
-      padding: 3rem 2.5rem;
-      box-shadow: 0 8px 40px rgba(199,110,138,.1);
-      text-align: left;
-      max-width: 640px; margin: 0 auto;
+    /* Whack-a-mole style heart popping game */
+    .game-area {
+      background: var(--white);
+      border: 3px solid var(--border);
+      border-radius: 28px;
+      padding: 2rem 1.5rem;
+      width: min(380px, 92vw);
+      box-shadow: 0 8px 0 var(--border);
     }
-    .letter-wrap p {
-      font-size: 1rem; line-height: 2; color: var(--soft);
+    .game-score-row {
+      display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 1.2rem;
     }
-    .letter-wrap p:last-child { margin-bottom: 0; }
-    .letter-sign {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2rem; color: var(--deep);
-      margin-top: 1.5rem; display: block;
+    .score-label { font-size: .8rem; font-weight: 700; color: var(--muted); }
+    .score-val {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem; color: var(--rose);
+    }
+    .score-target { font-size: .8rem; font-weight: 700; color: var(--muted); }
+
+    .hearts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .6rem;
+      margin-bottom: 1.2rem;
+    }
+    .heart-cell {
+      background: var(--petal);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      height: 68px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .1s;
+      position: relative; overflow: hidden;
+    }
+    .heart-cell:active { transform: scale(.88); }
+    .heart-cell.pop {
+      animation: popHeart .25s ease forwards;
+    }
+    @keyframes popHeart {
+      0%{transform:scale(1)} 40%{transform:scale(1.35)} 100%{transform:scale(1)}
+    }
+    .heart-cell.miss { animation: shake .3s ease; }
+    @keyframes shake {
+      0%,100%{transform:translateX(0)}
+      25%{transform:translateX(-6px)} 75%{transform:translateX(6px)}
     }
 
-    /* ── BURST HEARTS ANIMATION ── */
-    .burst-section {
-      padding: 4rem 1.5rem;
+    .progress-bar-wrap {
+      background: var(--petal);
+      border-radius: 50px; height: 10px;
+      overflow: hidden; margin-bottom: .5rem;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--rose2), var(--rose));
+      border-radius: 50px;
+      transition: width .3s ease;
+      width: 0%;
+    }
+    .game-hint { font-size: .78rem; font-weight: 600; color: var(--muted); text-align: center; }
+
+    /* success flash */
+    .game-success {
+      display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: .6rem;
+    }
+    .game-success.show { display: flex; }
+    .game-success-icon { font-size: 4rem; animation: bounceIn .5s ease; }
+    @keyframes bounceIn {
+      0%{transform:scale(0) rotate(-20deg)} 60%{transform:scale(1.2) rotate(5deg)} 100%{transform:scale(1) rotate(0)}
+    }
+    .game-success-text {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.3rem; color: var(--rose);
+    }
+    .game-success-btn {
+      background: var(--rose); color: var(--white);
+      border: none; border-radius: 50px;
+      padding: .85rem 2.4rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: .95rem; font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #5a1e37;
+      transition: transform .12s, box-shadow .12s;
+      margin-top: .4rem;
+    }
+    .game-success-btn:active {
+      transform: translateY(3px); box-shadow: 0 2px 0 #5a1e37;
+    }
+
+    /* ═══════════════════════════════
+       SCREEN 3 — MAIN LETTER
+    ═══════════════════════════════ */
+    #s-main {
+      position: relative; z-index: 1;
+      /* NOT fixed — it scrolls */
+      display: none;
+    }
+    #s-main.show-main {
+      display: block;
+    }
+
+    /* top deco strip */
+    .main-top {
+      background: linear-gradient(135deg, #ecc5d5, #f5d6e0);
+      padding: 5rem 2rem 4rem;
       text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .main-top-deco {
+      position: absolute; top: 1.2rem; left: 50%;
+      transform: translateX(-50%);
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .3em; text-transform: uppercase;
+      color: var(--rose);
+    }
+    .main-top-script {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      color: var(--text); line-height: 1.3;
+      margin-bottom: .5rem;
+    }
+    .main-top-name {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-weight: 800; color: var(--rose);
+    }
+
+    /* floating emojis in header */
+    .float-emoji {
+      position: absolute;
+      font-size: 1.6rem;
+      animation: floatBob 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .float-emoji:nth-child(2){top:18%;left:8%;animation-delay:.4s;}
+    .float-emoji:nth-child(3){top:25%;right:9%;animation-delay:.8s;font-size:1.2rem;}
+    .float-emoji:nth-child(4){bottom:20%;left:12%;animation-delay:1.2s;font-size:1rem;}
+    .float-emoji:nth-child(5){bottom:15%;right:7%;animation-delay:.6s;}
+    @keyframes floatBob {
+      0%,100%{transform:translateY(0) rotate(-5deg)}
+      50%{transform:translateY(-12px) rotate(5deg)}
+    }
+
+    /* letter body */
+    .letter-outer {
+      max-width: 700px; margin: 0 auto;
+      padding: 4rem 1.5rem 6rem;
+    }
+
+    .letter-card {
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 28px;
+      padding: 3rem 2.8rem;
+      box-shadow: 0 8px 0 var(--border), 0 16px 40px rgba(125,45,79,.08);
       position: relative;
-      overflow: hidden;
     }
-    .burst-hearts {
-      font-size: 2.5rem;
-      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
-      max-width: 420px; margin: 0 auto 2rem;
-    }
-    .burst-hearts span {
-      display: inline-block;
-      animation: floatUp 3s ease-in-out infinite;
-    }
-    .burst-hearts span:nth-child(2) { animation-delay: .3s; }
-    .burst-hearts span:nth-child(3) { animation-delay: .6s; }
-    .burst-hearts span:nth-child(4) { animation-delay: .9s; }
-    .burst-hearts span:nth-child(5) { animation-delay: 1.2s; }
-    .burst-hearts span:nth-child(6) { animation-delay: 1.5s; }
-    @keyframes floatUp {
-      0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-18px) scale(1.2)}
-    }
-    .big-quote {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      color: var(--text); line-height: 1.4;
-      max-width: 600px; margin: 0 auto;
+    .letter-card::before {
+      content: '🤍';
+      position: absolute; top: -1.2rem; left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      background: var(--cream); padding: 0 .5rem;
     }
 
-    /* ── CLOSING ── */
-    .closing {
-      background: linear-gradient(160deg, #fce4ec, #fff0f5);
-      padding: 6rem 2rem;
+    .letter-greeting {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.4rem; color: var(--rose);
+      margin-bottom: 2rem;
+    }
+
+    .letter-para {
+      font-size: 1rem; line-height: 2;
+      color: var(--text); margin-bottom: 1.6rem;
+      font-weight: 400;
+    }
+    .letter-para:last-of-type { margin-bottom: 0; }
+
+    .letter-highlight {
+      background: linear-gradient(120deg, #f5d6e0 0%, #fce8f0 100%);
+      border-left: 4px solid var(--rose);
+      border-radius: 0 12px 12px 0;
+      padding: 1rem 1.4rem;
+      margin: 1.8rem 0;
+      font-weight: 700; color: var(--rose);
+      font-size: .97rem; line-height: 1.75;
+    }
+
+    .letter-sign {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.6rem; color: var(--rose);
+      margin-top: 2.5rem; display: block;
+      text-align: right;
+    }
+
+    /* cute stamp */
+    .stamp {
+      width: 72px; height: 72px;
+      border: 3px dashed var(--border);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin-left: auto; margin-top: 1.5rem;
+      transform: rotate(4deg);
+      background: var(--petal);
+    }
+
+    /* outro strip */
+    .outro {
+      background: var(--rose);
+      padding: 4rem 2rem;
       text-align: center;
     }
-    .closing-script {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      color: var(--text); margin-bottom: 1rem;
+    .outro-script {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      color: var(--white); margin-bottom: .8rem;
     }
-    .closing-sub {
-      font-size: .9rem; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--deep);
+    .outro-sub {
+      font-size: .8rem; font-weight: 700;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: rgba(255,255,255,.6);
     }
+    .outro-hearts {
+      font-size: 2rem; margin-top: 1.5rem;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
 
-    /* ── FOOTER ── */
     footer {
-      text-align: center; padding: 2rem;
-      font-size: .78rem; color: #cba3b2;
-      letter-spacing: .1em;
+      background: var(--rose); padding-bottom: 2rem;
+      text-align: center;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(255,255,255,.35);
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 480px) {
-      .letter-wrap { padding: 2rem 1.4rem; }
-      .card { width: 100%; }
+    /* scroll reveal */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media(max-width: 480px){
+      .letter-card { padding: 2rem 1.3rem; }
+      .hearts-grid { grid-template-columns: repeat(4,1fr); gap:.4rem; }
+      .heart-cell { height: 58px; font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- FLOATING PETALS -->
-<div class="petals-bg" id="petals"></div>
+<canvas id="hearts-canvas"></canvas>
 
-<!-- OPENING SCREEN -->
-<div id="opening">
-  <div class="open-hearts">🌸 💗 🌸</div>
-  <p class="opening-label">Sebuah pesan untukmu</p>
-  <h1 class="opening-title">For the best boyfriend,</h1>
-  <p class="opening-name">Muhammad Faqih Rizki Fauzi</p>
-  <button class="open-btn" onclick="enterSite()">Buka Pesannya ✉️</button>
+<!-- ══════════════════════════
+     SCREEN 1 — OPENING
+══════════════════════════ -->
+<div class="screen" id="s-open">
+  <div class="open-deco">💝</div>
+  <p class="open-for">For the best boyfriend</p>
+  <h1 class="open-title">Muhammad Faqih<br>Rizki Fauzi</h1>
+  <p class="open-name">Ada pesan spesial buat kamu 🌸</p>
+  <button class="open-btn" id="btn-open">Lihat pesan →</button>
 </div>
 
-<!-- MAIN -->
-<main>
+<!-- ══════════════════════════
+     SCREEN 2 — GAME
+══════════════════════════ -->
+<div class="screen hidden" id="s-game">
+  <div class="game-title">Klik semua hati dulu ya!</div>
+  <p class="game-sub">Kumpulkan 15 💗 buat buka suratnya ✉️</p>
 
-  <!-- HERO -->
-  <div class="hero">
-    <p class="hero-tag">Dengan sepenuh hati</p>
-    <h1 class="hero-script">Terima kasih udah jadi rumahku sayangg</h1>
-    <div class="divider"></div>
-    <p class="hero-sub">
-      Terima kasih banyak sayang, udah mau jadi laki-laki yang selama ini aku inginkan.
-      i love youuu soo muchhh faqihku.
-    </p>
-  </div>
-
-  <!-- THANK YOU SECTION -->
-  <section>
-    <p class="section-eyebrow">Rasa syukur yang dalam</p>
-    <h2 class="section-title">Terima kasih sudah hadir</h2>
-    <p class="section-body">
-      Kamu bukan hanya pacar — kamu adalah tempat aku pulang setiap kali dunia terasa berat.
-      Setiap kalimat yang kamu ucapkan, setiap perhatian kecil yang kamu berikan,
-      semuanya terasa seperti pelukan yang tidak ingin aku lepas.
-    </p>
-  </section>
-
-  <!-- BURST HEARTS -->
-  <div class="burst-section">
-    <div class="burst-hearts">
-      <span>💗</span><span>🤍</span><span>💕</span>
-      <span>🌸</span><span>💗</span><span>🤍</span>
+  <div class="game-area">
+    <!-- normal state -->
+    <div id="game-normal">
+      <div class="game-score-row">
+        <span class="score-label">Terkumpul</span>
+        <span class="score-val" id="score-display">0</span>
+        <span class="score-target">/ 15 💗</span>
+      </div>
+      <div class="hearts-grid" id="hearts-grid"></div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <p class="game-hint" id="game-hint">Tap hati yang muncul! 💗</p>
     </div>
-    <p class="big-quote">"Di sisimu, aku selalu merasa aman."</p>
-  </div>
 
-  <!-- CARDS -->
-  <div class="cards">
-    <div class="card">
-      <div class="card-icon">🏡</div>
-      <h3 class="card-title">Kamu itu Rumahku</h3>
-      <p class="card-text">Bukan sebuah bangunan, tapi kamu itutempat aku merasa benar-benar di rumah.Sama kamu aku bener-bener ngerasa duniaku hidup lagi</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🌹</div>
-      <h3 class="card-title">oiya, makasii yaa selalu jadi pacar terbaikuu</h3>
-      <p class="card-text">Bukan cuma dari wajah — dari cara kamu bicara, cara kamu peduli, dan cara kamu jadi dirimu sendiri.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">💖</div>
-      <h3 class="card-title">Aku Sayang Kamu</h3>
-      <p class="card-text">Dengan segala yang ada dalam diriku. Setiap hari rasa itu bertumbuh, tanpa pernah berkurang.</p>
+    <!-- success state -->
+    <div class="game-success" id="game-success">
+      <div class="game-success-icon">🎉</div>
+      <p class="game-success-text">Yeay! Kamu berhasil!</p>
+      <p style="font-size:.85rem;font-weight:600;color:var(--muted);">Sekarang buka suratnya yuk~</p>
+      <button class="game-success-btn" id="btn-enter">Buka Surat 💌</button>
     </div>
   </div>
+</div>
 
-  <!-- LOVE LETTER -->
-  <section>
-    <p class="section-eyebrow">Dari hati yang paling dalam</p>
-    <h2 class="section-title">Surat Cinta Untukmu</h2>
-  </section>
-  <div style="max-width:720px;margin:0 auto;padding:0 1.5rem 5rem;">
-    <div class="letter-wrap">
-      <p>Sayang,</p>
-      <p>
-        Aku tidak tahu bagaimana cara merangkai kata yang sepadan dengan semua yang kamu berikan.
-        Tapi yang pasti — sejak kamu ada, hidup terasa jauh lebih berarti.
+<!-- ══════════════════════════
+     SCREEN 3 — MAIN (scrollable)
+══════════════════════════ -->
+<div id="s-main">
+
+  <div class="main-top">
+    <div class="main-top-deco">Untuk kamu 🤍</div>
+    <span class="float-emoji">💗</span>
+    <span class="float-emoji">🌸</span>
+    <span class="float-emoji">✨</span>
+    <span class="float-emoji">💕</span>
+    <h1 class="main-top-script">Buat Faqih<br>yang paling aku sayang</h1>
+    <p class="main-top-name">Muhammad Faqih Rizki Fauzi</p>
+  </div>
+
+  <div class="letter-outer">
+    <div class="letter-card reveal">
+
+      <p class="letter-greeting">Hei, sayang 🤍</p>
+
+      <p class="letter-para">
+        Kadang aku mikir, aneh juga ya gimana seseorang yang jauh bisa punya pengaruh sebesar itu ke hidup aku. Padahal kita nggak selalu ketemu, nggak bisa tiap hari jalan bareng, nggak bisa sesimpel dateng waktu lagi pengen peluk. Tapi walaupun jarak kita sejauh itu, kamu tetap jadi orang yang paling terasa dekat buat aku.
       </p>
-      <p>
-        Kamu adalah laki-laki yang selama ini aku impikan. Bukan karena sempurna,
-        tapi karena kamu nyata — dengan segala ketulusanmu, cara kamu menjagaku,
-        dan caramu membuat aku merasa berharga tanpa harus meminta.
+
+      <div class="letter-highlight">
+        Makasih ya udah bertahan sejauh ini sama aku. Makasih karena selalu ngusahain hubungan ini walaupun kita sama-sama tau LDR itu nggak gampang.
+      </div>
+
+      <p class="letter-para">
+        Ada banyak hari dimana yang kita punya cuma kabar, telepon, atau hal-hal kecil yang mungkin buat orang lain biasa aja. Tapi justru dari hal-hal kecil itu aku sadar kalau kamu benar-benar tulus.
       </p>
-      <p>
-        Kamu itu rumahku, Faqih. Tempat aku berlabuh ketika lelah.
-        Tempat aku tertawa tanpa alasan. Tempat aku menjadi diri sendiri tanpa takut.
+
+      <p class="letter-para">
+        Aku suka cara kamu selalu nyempetin aku di tengah capenya hari kamu. Aku suka cara kamu dengerin cerita aku, bahkan yang nggak penting sekalipun. Dan aku suka fakta kalau sejauh apa pun jaraknya, kamu tetap bikin aku ngerasa punya rumah.
       </p>
-      <p>
-        Dan kamu tahu apa yang paling aku syukuri? Bahwa laki-laki seganteng kamu —
-        luar dan dalam — mau memilihku setiap harinya.
+
+      <p class="letter-para">
+        Jujur, hidup aku berubah banyak sejak ada kamu. Hari-hari yang tadinya biasa aja sekarang jadi punya sesuatu yang ditunggu. Dunia aku rasanya jadi lebih hidup karena ada kamu di dalamnya. Kamu bikin aku ngerti kalau dicintai itu nggak harus selalu tentang hal besar atau kata-kata manis terus-terusan, tapi tentang seseorang yang tetap milih stay, tetap peduli, dan tetap ada walaupun terhalang jarak.
       </p>
-      <p>
-        Aku sayang kamu, lebih dari yang bisa aku ucapkan. 💗
+
+      <div class="letter-highlight">
+        Aku tau hubungan kita nggak selalu mulus. Kadang ada kangen yang numpuk, ada salah paham kecil, ada capek karena keadaan. Tapi di balik semua itu, aku tetap bersyukur karena pasangan aku adalah kamu — seseorang yang selalu bikin aku percaya kalau hubungan ini layak diperjuangin.
+      </div>
+
+      <p class="letter-para">
+        Semoga nanti semua doa baik kita pelan-pelan jadi nyata. Semoga suatu hari jarak nggak lagi jadi pembatas buat kita. Tapi sampai hari itu datang, aku harap kamu tau kalau kamu tetap jadi bagian paling nyaman dari hidup aku sekarang.
       </p>
-      <span class="letter-sign">Dengan cinta tulus,<br>Dari yang menyayangimu 🌸</span>
+
+      <p class="letter-para">
+        Dan kalau suatu saat kamu ngerasa lelah sama semuanya, inget ya — di tempat yang jauh ini ada seseorang yang selalu bangga punya kamu, selalu nyebut nama kamu di dalam doanya, dan selalu berharap kamu baik-baik aja.
+      </p>
+
+      <p class="letter-para" style="font-weight:700;color:var(--rose);">
+        Makasih udah jadi rumah, bahkan dari jauh 🤍
+      </p>
+
+      <span class="letter-sign">Selalu untukmu~</span>
+      <div class="stamp">💌</div>
     </div>
   </div>
 
-  <!-- SECOND QUOTE -->
-  <div class="burst-section">
-    <div class="burst-hearts">
-      <span>💗</span><span>💕</span><span>🌸</span><span>💗</span>
-    </div>
-    <p class="big-quote">"Mencintaimu adalah keputusan terbaik yang pernah aku buat."</p>
+  <div class="outro">
+    <p class="outro-script">Always yours 🤍</p>
+    <p class="outro-sub">Muhammad Faqih Rizki Fauzi</p>
+    <div class="outro-hearts">💗 💕 💗</div>
   </div>
 
-  <!-- FINAL WORDS -->
-  <section>
-    <p class="section-eyebrow">Dan satu lagi…</p>
-    <h2 class="section-title">Kamu itu benar-benar ganteng, sayang</h2>
-    <p class="section-body">
-      Bukan lebay, bukan basa-basi — kamu ganteng dengan cara yang membuatku nggak bisa berhenti
-      memandangmu. Cara kamu senyum, cara kamu bicara, cara kamu ada untukku.
-      Semuanya membuat hatiku penuh setiap hari.
-    </p>
-    <div class="divider"></div>
-    <p class="section-body" style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;">
-      Terima kasih sudah ada. Terima kasih sudah memilihku. Terima kasih sudah menjadi kamu.
-    </p>
-  </section>
-
-  <!-- CLOSING -->
-  <div class="closing">
-    <p class="closing-script">Always yours 💗</p>
-    <p class="closing-sub">Muhammad Faqih Rizki Fauzi</p>
-  </div>
-
-</main>
-
-<footer>made with 💗 just for you</footer>
+  <footer>made with 💗 just for you</footer>
+</div>
 
 <script>
-  // ── Falling petals ──
-  const emojis = ['🌸','💗','🌷','💕','✿','🌺'];
-  const container = document.getElementById('petals');
-  for (let i = 0; i < 28; i++) {
-    const p = document.createElement('span');
-    p.classList.add('petal');
-    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.fontSize = (.7 + Math.random() * .9) + 'rem';
-    p.style.animationDuration = (7 + Math.random() * 9) + 's';
-    p.style.animationDelay = (Math.random() * 10) + 's';
-    container.appendChild(p);
-  }
+/* ──────────────────────────────
+   HEARTS CANVAS (ambient bg)
+────────────────────────────── */
+const cv = document.getElementById('hearts-canvas');
+const cx = cv.getContext('2d');
+let cW, cH;
+const pts = [];
 
-  // ── Opening dismiss ──
-  function enterSite() {
-    document.getElementById('opening').classList.add('hide');
-    setTimeout(() => {
-      document.getElementById('opening').style.display = 'none';
-    }, 1300);
+function resizeCv(){
+  cW = cv.width  = window.innerWidth;
+  cH = cv.height = window.innerHeight;
+}
+resizeCv();
+window.addEventListener('resize', resizeCv);
+
+for(let i=0;i<35;i++){
+  pts.push({
+    x: Math.random()*window.innerWidth,
+    y: Math.random()*window.innerHeight,
+    r: .5+Math.random()*1.3,
+    sx:(Math.random()-.5)*.3,
+    sy:-.1-Math.random()*.25,
+    o:.06+Math.random()*.12
+  });
+}
+
+function drawCv(){
+  cx.clearRect(0,0,cW,cH);
+  pts.forEach(p=>{
+    cx.beginPath();
+    cx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    cx.fillStyle=`rgba(158,61,101,${p.o})`;
+    cx.fill();
+    p.x+=p.sx; p.y+=p.sy;
+    if(p.y<-10){p.y=cH+10;p.x=Math.random()*cW;}
+  });
+  requestAnimationFrame(drawCv);
+}
+drawCv();
+
+/* ──────────────────────────────
+   SCREEN TRANSITIONS
+────────────────────────────── */
+const sOpen = document.getElementById('s-open');
+const sGame = document.getElementById('s-game');
+const sMain = document.getElementById('s-main');
+
+document.getElementById('btn-open').addEventListener('click', ()=>{
+  sOpen.classList.add('hidden');
+  setTimeout(()=>{
+    sOpen.classList.add('gone');
+    sGame.classList.remove('hidden');
+  }, 850);
+});
+
+document.getElementById('btn-enter').addEventListener('click', ()=>{
+  sGame.classList.add('hidden');
+  setTimeout(()=>{
+    sGame.classList.add('gone');
+    sMain.classList.add('show-main');
+    window.scrollTo(0,0);
+    initReveal();
+  }, 850);
+});
+
+/* ──────────────────────────────
+   GAME LOGIC
+────────────────────────────── */
+const EMOJIS_ACTIVE  = ['💗','💖','💝','💕','🩷'];
+const EMOJIS_PASSIVE = ['✨','🌸','⭐','🌷','🎀'];
+const GRID_SIZE = 12;
+const TARGET = 15;
+
+let score = 0;
+let activeCell = -1;
+let gameTimer = null;
+let cells = [];
+
+const grid       = document.getElementById('hearts-grid');
+const scoreEl    = document.getElementById('score-display');
+const progressEl = document.getElementById('progress-bar');
+const hintEl     = document.getElementById('game-hint');
+
+// build grid
+for(let i=0;i<GRID_SIZE;i++){
+  const cell = document.createElement('div');
+  cell.className = 'heart-cell';
+  cell.dataset.idx = i;
+  cell.textContent = EMOJIS_PASSIVE[Math.floor(Math.random()*EMOJIS_PASSIVE.length)];
+  cell.addEventListener('click', onCellClick);
+  grid.appendChild(cell);
+  cells.push(cell);
+}
+
+function pickNextActive(){
+  // clear old
+  if(activeCell >= 0){
+    cells[activeCell].textContent = EMOJIS_PASSIVE[Math.floor(Math.random()*EMOJIS_PASSIVE.length)];
+    cells[activeCell].style.background = '';
+    cells[activeCell].style.borderColor = '';
   }
+  const next = Math.floor(Math.random()*GRID_SIZE);
+  activeCell = next;
+  cells[activeCell].textContent = EMOJIS_ACTIVE[Math.floor(Math.random()*EMOJIS_ACTIVE.length)];
+  cells[activeCell].style.background = '#f5d6e0';
+  cells[activeCell].style.borderColor = '#9e3d65';
+}
+
+function onCellClick(e){
+  const idx = parseInt(e.currentTarget.dataset.idx);
+  if(idx === activeCell){
+    score++;
+    scoreEl.textContent = score;
+    progressEl.style.width = (score/TARGET*100)+'%';
+    e.currentTarget.classList.add('pop');
+    setTimeout(()=>e.currentTarget.classList.remove('pop'),260);
+
+    const hints = ['Yes! 💗','Niceee~','Hihi 🌸','Bagus!','Yeay! 💕','Kamu pinter~','Aduh imut 🩷'];
+    hintEl.textContent = hints[Math.floor(Math.random()*hints.length)];
+
+    if(score >= TARGET){
+      clearInterval(gameTimer);
+      setTimeout(showSuccess, 400);
+      return;
+    }
+    pickNextActive();
+  } else {
+    e.currentTarget.classList.add('miss');
+    setTimeout(()=>e.currentTarget.classList.remove('miss'),320);
+    const misses = ['Bukan yang itu 😅','Ehh salah~','Cari yang pink!','Yang ngejreng dong 💗'];
+    hintEl.textContent = misses[Math.floor(Math.random()*misses.length)];
+  }
+}
+
+function showSuccess(){
+  document.getElementById('game-normal').style.display = 'none';
+  document.getElementById('game-success').classList.add('show');
+}
+
+// start game when screen 2 appears
+const obs = new MutationObserver(()=>{
+  if(!sGame.classList.contains('hidden') && !sGame.classList.contains('gone')){
+    clearInterval(gameTimer);
+    pickNextActive();
+    gameTimer = setInterval(pickNextActive, 1800);
+  }
+});
+obs.observe(sGame, {attributes:true, attributeFilter:['class']});
+
+/* ──────────────────────────────
+   SCROLL REVEAL
+────────────────────────────── */
+function initReveal(){
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+  },{threshold:.12});
+  els.forEach(el=>io.observe(el));
+}
 </script>
 </body>
 </html>
