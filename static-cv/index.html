@@ -370,10 +370,123 @@
     }
     .reveal.in { opacity: 1; transform: translateY(0); }
 
+    /* ═══════════════════════════════
+       COUPLE DOLL SECTION
+    ═══════════════════════════════ */
+    .doll-section {
+      background: linear-gradient(180deg, var(--cream) 0%, #fce8f0 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .doll-label {
+      font-size: .72rem; font-weight: 800;
+      letter-spacing: .3em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 2rem;
+    }
+
+    .doll-stage {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
+      position: relative;
+      min-height: 220px;
+      max-width: 380px;
+      margin: 0 auto 2rem;
+    }
+
+    /* dolls */
+    .doll { position: relative; display: flex; flex-direction: column; align-items: center; }
+    .doll svg { display: block; }
+
+    .doll-girl {
+      animation: dollBobGirl 2.4s ease-in-out infinite;
+      transform-origin: bottom center;
+      margin-right: -18px;
+      z-index: 2;
+    }
+    .doll-boy {
+      animation: dollBobBoy 2.4s ease-in-out infinite;
+      transform-origin: bottom center;
+      margin-left: -18px;
+      z-index: 1;
+    }
+    @keyframes dollBobGirl {
+      0%,100%{transform:translateY(0) rotate(-2deg)}
+      50%{transform:translateY(-10px) rotate(2deg)}
+    }
+    @keyframes dollBobBoy {
+      0%,100%{transform:translateY(0) rotate(2deg)}
+      50%{transform:translateY(-10px) rotate(-2deg)}
+    }
+
+    .doll-name {
+      font-size: .78rem; font-weight: 800;
+      color: var(--rose); margin-top: .5rem;
+    }
+
+    /* middle heart */
+    .middle-heart {
+      font-size: 2rem;
+      z-index: 5;
+      align-self: center;
+      margin-bottom: 2.5rem;
+      animation: heartBeat 1.2s ease-in-out infinite;
+      position: relative;
+    }
+    @keyframes heartBeat {
+      0%,100%{transform:scale(1)}
+      14%{transform:scale(1.3)}
+      28%{transform:scale(1)}
+      42%{transform:scale(1.2)}
+      70%{transform:scale(1)}
+    }
+
+    /* burst hearts */
+    .burst {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      pointer-events: none;
+    }
+    .burst span {
+      position: absolute;
+      font-size: 1.1rem;
+      animation: burstFly 2.8s ease-in-out infinite;
+      animation-delay: calc(var(--a) / 360deg * 2.8s);
+      transform-origin: center;
+    }
+    @keyframes burstFly {
+      0%   { transform: rotate(var(--a)) translateX(0px);   opacity: 0; }
+      20%  { opacity: 1; }
+      60%  { transform: rotate(var(--a)) translateX(55px);  opacity: .8; }
+      100% { transform: rotate(var(--a)) translateX(80px);  opacity: 0; }
+    }
+
+    /* caption */
+    .doll-caption {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+      color: var(--rose); line-height: 1.5;
+      margin-top: .5rem;
+    }
+
+    /* girl arm lean */
+    .girl-arm-r { transform-origin: left center; animation: girlArmWave 2.4s ease-in-out infinite; }
+    @keyframes girlArmWave {
+      0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-25deg)}
+    }
+    .boy-arm-r { transform-origin: left center; animation: boyArmHug 2.4s ease-in-out infinite; }
+    @keyframes boyArmHug {
+      0%,100%{transform:rotate(0deg)} 50%{transform:rotate(20deg)}
+    }
+
     @media(max-width: 480px){
       .letter-card { padding: 2rem 1.3rem; }
       .hearts-grid { grid-template-columns: repeat(4,1fr); gap:.4rem; }
       .heart-cell { height: 58px; font-size: 1.5rem; }
+      .doll svg { width: 80px; height: 144px; }
     }
   </style>
 </head>
@@ -483,6 +596,121 @@
       <span class="letter-sign">Selalu untukmu~</span>
       <div class="stamp">💌</div>
     </div>
+  </div>
+
+  <!-- ══════════════════════
+       COUPLE DOLL ANIMATION
+  ══════════════════════ -->
+  <div class="doll-section reveal">
+    <p class="doll-label">kita 🤍</p>
+
+    <div class="doll-stage">
+
+      <!-- floating hearts burst -->
+      <div class="burst" id="burst">
+        <span style="--a:0deg">💗</span>
+        <span style="--a:45deg">💕</span>
+        <span style="--a:90deg">🩷</span>
+        <span style="--a:135deg">💗</span>
+        <span style="--a:180deg">💕</span>
+        <span style="--a:225deg">🩷</span>
+        <span style="--a:270deg">💗</span>
+        <span style="--a:315deg">💕</span>
+      </div>
+
+      <!-- GIRL DOLL -->
+      <div class="doll doll-girl" id="doll-girl">
+        <svg viewBox="0 0 100 180" xmlns="http://www.w3.org/2000/svg" width="100" height="180">
+          <!-- hair back -->
+          <ellipse cx="50" cy="38" rx="28" ry="30" fill="#3d1f0a"/>
+          <!-- two pigtail buns -->
+          <circle cx="25" cy="22" r="11" fill="#3d1f0a"/>
+          <circle cx="75" cy="22" r="11" fill="#3d1f0a"/>
+          <!-- face -->
+          <circle cx="50" cy="42" r="22" fill="#fddbb4"/>
+          <!-- hair fringe -->
+          <path d="M28 30 Q36 20 50 26 Q64 20 72 30 Q60 24 50 28 Q40 24 28 30Z" fill="#3d1f0a"/>
+          <!-- blush -->
+          <ellipse cx="37" cy="47" rx="6" ry="4" fill="#f5a0b5" opacity=".55"/>
+          <ellipse cx="63" cy="47" rx="6" ry="4" fill="#f5a0b5" opacity=".55"/>
+          <!-- eyes -->
+          <ellipse cx="42" cy="41" rx="4" ry="4.5" fill="#1a1a1a"/>
+          <ellipse cx="58" cy="41" rx="4" ry="4.5" fill="#1a1a1a"/>
+          <circle cx="43.5" cy="39.5" r="1.2" fill="#fff"/>
+          <circle cx="59.5" cy="39.5" r="1.2" fill="#fff"/>
+          <!-- smile -->
+          <path d="M43 50 Q50 57 57 50" stroke="#c76e8a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- body — pink dress -->
+          <rect x="32" y="62" width="36" height="42" rx="10" fill="#9e3d65"/>
+          <!-- dress skirt flare -->
+          <path d="M28 96 Q50 116 72 96 L68 104 Q50 122 32 104Z" fill="#7d2d4f"/>
+          <!-- collar detail -->
+          <path d="M42 64 Q50 70 58 64" stroke="#ecc5d5" stroke-width="1.5" fill="none"/>
+          <!-- arms -->
+          <rect x="14" y="65" width="18" height="10" rx="5" fill="#fddbb4" class="girl-arm-l"/>
+          <rect x="68" y="65" width="18" height="10" rx="5" fill="#fddbb4" class="girl-arm-r"/>
+          <!-- legs -->
+          <rect x="38" y="138" width="10" height="28" rx="5" fill="#fddbb4"/>
+          <rect x="52" y="138" width="10" height="28" rx="5" fill="#fddbb4"/>
+          <!-- shoes -->
+          <ellipse cx="43" cy="167" rx="8" ry="5" fill="#7d2d4f"/>
+          <ellipse cx="57" cy="167" rx="8" ry="5" fill="#7d2d4f"/>
+          <!-- heart on dress -->
+          <text x="46" y="88" font-size="10" text-anchor="middle" fill="#fce8f0">♥</text>
+        </svg>
+        <div class="doll-name">kamu 🩷</div>
+      </div>
+
+      <!-- HEART in the middle -->
+      <div class="middle-heart" id="middle-heart">💗</div>
+
+      <!-- BOY DOLL -->
+      <div class="doll doll-boy" id="doll-boy">
+        <svg viewBox="0 0 100 180" xmlns="http://www.w3.org/2000/svg" width="100" height="180">
+          <!-- hair -->
+          <ellipse cx="50" cy="30" rx="24" ry="18" fill="#2b1a08"/>
+          <rect x="26" y="24" width="48" height="14" rx="4" fill="#2b1a08"/>
+          <!-- face -->
+          <circle cx="50" cy="42" r="22" fill="#fddbb4"/>
+          <!-- hair top flop -->
+          <path d="M30 26 Q42 16 58 20 Q68 18 70 26 Q62 22 50 24 Q38 22 30 26Z" fill="#2b1a08"/>
+          <!-- blush -->
+          <ellipse cx="37" cy="47" rx="6" ry="4" fill="#f5a0b5" opacity=".4"/>
+          <ellipse cx="63" cy="47" rx="6" ry="4" fill="#f5a0b5" opacity=".4"/>
+          <!-- eyes -->
+          <ellipse cx="42" cy="41" rx="4" ry="4.5" fill="#1a1a1a"/>
+          <ellipse cx="58" cy="41" rx="4" ry="4.5" fill="#1a1a1a"/>
+          <circle cx="43.5" cy="39.5" r="1.2" fill="#fff"/>
+          <circle cx="59.5" cy="39.5" r="1.2" fill="#fff"/>
+          <!-- eyebrows -->
+          <path d="M38 35 Q42 33 46 35" stroke="#2b1a08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M54 35 Q58 33 62 35" stroke="#2b1a08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <!-- smile -->
+          <path d="M43 50 Q50 56 57 50" stroke="#c76e8a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- body — dark shirt -->
+          <rect x="30" y="62" width="40" height="44" rx="10" fill="#3d1a2e"/>
+          <!-- shirt collar -->
+          <path d="M44 62 L50 70 L56 62" stroke="#5a2d4a" stroke-width="1.5" fill="none"/>
+          <!-- arms — right arm reaching toward girl -->
+          <rect x="68" y="65" width="20" height="10" rx="5" fill="#fddbb4" class="boy-arm-r"/>
+          <rect x="12" y="65" width="18" height="10" rx="5" fill="#fddbb4"/>
+          <!-- pants -->
+          <rect x="30" y="104" width="40" height="30" rx="6" fill="#2b1a08"/>
+          <!-- legs -->
+          <rect x="34" y="132" width="12" height="32" rx="6" fill="#1a1008"/>
+          <rect x="54" y="132" width="12" height="32" rx="6" fill="#1a1008"/>
+          <!-- shoes -->
+          <ellipse cx="40" cy="165" rx="10" ry="6" fill="#111"/>
+          <ellipse cx="60" cy="165" rx="10" ry="6" fill="#111"/>
+          <!-- star on shirt -->
+          <text x="50" y="86" font-size="10" text-anchor="middle" fill="#9e3d65">★</text>
+        </svg>
+        <div class="doll-name">aku 🌸</div>
+      </div>
+
+    </div><!-- /doll-stage -->
+
+    <p class="doll-caption">"jauh di mata,<br>dekat di hati 🤍"</p>
   </div>
 
   <div class="outro">
